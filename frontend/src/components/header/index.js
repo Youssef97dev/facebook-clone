@@ -14,9 +14,12 @@ import {
   Messenger,
   Notifications,
 } from "../../svg";
+import SearchMenu from "./SearchMenu";
+import { useState } from "react";
 
 const Header = () => {
   const color = "#65676b";
+  const [showSearchMenu, setShowSearchMenu] = useState(false);
   const { user } = useSelector((user) => ({ ...user }));
   return (
     <header>
@@ -26,7 +29,7 @@ const Header = () => {
             <Logo />
           </div>
         </Link>
-        <div className="search search1">
+        <div className="search search1" onClick={() => setShowSearchMenu(true)}>
           <Search color={color} />
           <input
             type="text"
@@ -35,6 +38,9 @@ const Header = () => {
           />
         </div>
       </div>
+      {showSearchMenu && (
+        <SearchMenu color={color} setShowSearchMenu={setShowSearchMenu} />
+      )}
       <div className="header_middle">
         <Link to="/" className="middle_icon active">
           <HomeActive />
