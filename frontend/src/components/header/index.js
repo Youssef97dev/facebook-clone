@@ -15,11 +15,20 @@ import {
   Notifications,
 } from "../../svg";
 import SearchMenu from "./SearchMenu";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import AllMenu from "./AllMenu";
+import useClickOutSide from "../../helpers/clickOutside";
+import UserMenu from "./userMenu";
 
 const Header = () => {
   const color = "#65676b";
   const [showSearchMenu, setShowSearchMenu] = useState(false);
+  const [showAllmenu, setShowAllMenu] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(true);
+  const allmenu = useRef(null);
+  useClickOutSide(allmenu, () => {
+    setShowAllMenu(false);
+  });
   const { user } = useSelector((user) => ({ ...user }));
   return (
     <header>
@@ -64,8 +73,15 @@ const Header = () => {
           <img src={user?.picture} alt="" />
           <span>{user?.first_name}</span>
         </Link>
-        <div className="circle_icon hover1">
+        <div
+          className="circle_icon hover1"
+          ref={allmenu}
+          onClick={() => {
+            setShowAllMenu((prev) => !prev);
+          }}
+        >
           <Menu />
+          {showAllmenu && <AllMenu />}
         </div>
         <div className="circle_icon hover1">
           <Messenger />
@@ -76,6 +92,7 @@ const Header = () => {
         </div>
         <div className="circle_icon hover1">
           <ArrowDown />
+          {showUserMenu && <UserMenu user={user} />}
         </div>
       </div>
     </header>
