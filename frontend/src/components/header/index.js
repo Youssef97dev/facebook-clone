@@ -24,10 +24,15 @@ const Header = () => {
   const color = "#65676b";
   const [showSearchMenu, setShowSearchMenu] = useState(false);
   const [showAllmenu, setShowAllMenu] = useState(false);
-  const [showUserMenu, setShowUserMenu] = useState(true);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const allmenu = useRef(null);
+  const usermenu = useRef(null);
   useClickOutSide(allmenu, () => {
     setShowAllMenu(false);
+  });
+
+  useClickOutSide(usermenu, () => {
+    setShowUserMenu(false);
   });
   const { user } = useSelector((user) => ({ ...user }));
   return (
@@ -74,13 +79,17 @@ const Header = () => {
           <span>{user?.first_name}</span>
         </Link>
         <div
-          className="circle_icon hover1"
+          className={`circle_icon hover1 ${showAllmenu && "active_header"}`}
           ref={allmenu}
-          onClick={() => {
-            setShowAllMenu((prev) => !prev);
-          }}
         >
-          <Menu />
+          <div
+            onClick={() => {
+              setShowAllMenu((prev) => !prev);
+            }}
+          >
+            <Menu />
+          </div>
+
           {showAllmenu && <AllMenu />}
         </div>
         <div className="circle_icon hover1">
@@ -90,8 +99,14 @@ const Header = () => {
           <Notifications />
           <div className="right_notification">5</div>
         </div>
-        <div className="circle_icon hover1">
-          <ArrowDown />
+        <div
+          className={`circle_icon hover1 ${showUserMenu && "active_header"}`}
+          ref={usermenu}
+        >
+          <div onClick={() => setShowUserMenu((prev) => !prev)}>
+            <ArrowDown />
+          </div>
+
           {showUserMenu && <UserMenu user={user} />}
         </div>
       </div>
