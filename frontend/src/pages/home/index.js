@@ -1,17 +1,21 @@
-import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import "./style.css";
 import Header from "../../components/header";
-import useClickOutSide from "../../helpers/clickOutside";
+import LeftHome from "../../components/home/left";
+import RightHome from "../../components/home/right";
+import Stories from "../../components/home/stories";
+import CreatePost from "../../components/createPost";
 const Home = () => {
-  const [visible, setVisible] = useState(false);
-  const el = useRef(null);
-  useClickOutSide(el, () => {
-    setVisible(false);
-    console.log("outside");
-  });
+  const { user } = useSelector((user) => ({ ...user }));
   return (
-    <div>
+    <div className="home">
       <Header />
-      {visible && <div className="card" ref={el}></div>}
+      <LeftHome user={user} />
+      <div className="home_middle">
+        <Stories />
+        <CreatePost user={user} />
+      </div>
+      <RightHome user={user} />
     </div>
   );
 };
