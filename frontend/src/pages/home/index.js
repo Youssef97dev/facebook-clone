@@ -6,7 +6,7 @@ import RightHome from "../../components/home/right";
 import Stories from "../../components/home/stories";
 import CreatePost from "../../components/createPost";
 import SendVerification from "../../components/sendVerification";
-const Home = () => {
+const Home = ({ setVisible }) => {
   const { user } = useSelector((state) => ({ ...state }));
   return (
     <div className="home">
@@ -15,7 +15,7 @@ const Home = () => {
       <div className="home_middle">
         <Stories />
         {user.verified === false && <SendVerification user={user} />}
-        <CreatePost user={user} />
+        <CreatePost user={user} setVisible={setVisible} />
       </div>
       <RightHome user={user} />
     </div>

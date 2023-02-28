@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const fileUpload = require("express-fileupload");
 const app = express();
 
 // import readdirSync to read files
@@ -12,6 +13,11 @@ dotenv.config();
 
 app.use(express.json());
 app.use(cors());
+app.use(
+  fileUpload({
+    useTempFiles: true,
+  })
+);
 
 // Dynamic way to use routes with readdirSync
 readdirSync("./routes").map((r) => app.use("/", require("./routes/" + r)));
