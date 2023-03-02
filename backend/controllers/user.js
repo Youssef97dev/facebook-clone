@@ -202,6 +202,7 @@ exports.findUser = async (req, res) => {
     return res.status(200).json({
       email: user.email,
       picture: user.picture,
+      username: user.username,
     });
   } catch (error) {
     res.status(500).json({

@@ -42,7 +42,7 @@ const SendEmail = ({
         <div className="reset_right">
           <img src={userInfos.picture} alt="" />
           <span>{userInfos.email}</span>
-          <span>Facebook user</span>
+          <span>{userInfos.username}</span>
         </div>
       </div>
       {error && (

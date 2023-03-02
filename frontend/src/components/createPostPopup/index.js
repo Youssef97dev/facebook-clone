@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 import EmojiPickerBackgrounds from "./EmojiPickerBackgrounds";
@@ -13,6 +14,7 @@ import { uploadImages } from "../../functions/uploadImages";
 const CreatePostPopup = ({ user, setVisible }) => {
   const [text, setText] = useState("");
   const popup = useRef(null);
+  const navigate = useNavigate();
   const [showPrev, setShowPrev] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -89,6 +91,7 @@ const CreatePostPopup = ({ user, setVisible }) => {
     } else {
       console.log("nothing");
     }
+    navigate("/");
   };
   return (
     <div className="blur">
